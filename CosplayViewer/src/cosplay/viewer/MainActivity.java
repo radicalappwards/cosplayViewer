@@ -50,6 +50,7 @@ public class MainActivity extends Activity {
 				return myView;
 			}
 		});
+		is.setImageResource(pics[currentImage]);
 	}
 
 	public void left(View v) {
@@ -58,10 +59,8 @@ public class MainActivity extends Activity {
 		if (currentImage < 0)
 			currentImage = pics.length - 1;
 
-		Animation in = AnimationUtils.loadAnimation(this,
-				android.R.anim.slide_in_left);
-		Animation out = AnimationUtils.loadAnimation(this,
-				android.R.anim.slide_out_right);
+		Animation in = AnimationUtils.loadAnimation(this, R.anim.my_left_anim_in);
+		Animation out = AnimationUtils.loadAnimation(this, R.anim.my_left_anim_out);
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
 		is.setImageResource(pics[currentImage]);
@@ -74,10 +73,8 @@ public class MainActivity extends Activity {
 		if (currentImage > pics.length - 1)
 			currentImage = 0;
 
-		Animation in = AnimationUtils.loadAnimation(this,
-				android.R.anim.slide_out_right);
-		Animation out = AnimationUtils.loadAnimation(this,
-				android.R.anim.slide_in_left);
+		Animation in = AnimationUtils.loadAnimation(this, R.anim.my_right_anim_out);
+		Animation out = AnimationUtils.loadAnimation(this, R.anim.my_right_anim_in);
 		is.setInAnimation(out);
 		is.setOutAnimation(in);
 		is.setImageResource(pics[currentImage]);
