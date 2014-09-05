@@ -12,6 +12,9 @@ import android.widget.ViewSwitcher.ViewFactory;
 
 public class MainActivity extends Activity {
 
+	// link for building template out
+	// http://www.tutorialspoint.com/android/android_imageswitcher.htm
+
 	ImageSwitcher is;
 	public final static int[] pics = { R.drawable.image0, R.drawable.image1,
 			R.drawable.image2, R.drawable.image3, R.drawable.image4,
