@@ -7,9 +7,7 @@
     <ImageSwitcher
         android:id="@+id/mainImageSwitcher"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/image0"
-        android:src="@drawable/image0" />
+        android:layout_height="fill_parent" />
 
     <ImageButton
         android:id="@+id/leftButton"

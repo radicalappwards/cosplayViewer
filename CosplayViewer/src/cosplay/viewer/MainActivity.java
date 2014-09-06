@@ -2,6 +2,7 @@ package cosplay.viewer;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -50,33 +51,38 @@ public class MainActivity extends Activity {
 				return myView;
 			}
 		});
-		is.setImageResource(pics[currentImage]);
+		
+		Animation in = AnimationUtils.loadAnimation(this,
+				R.anim.my_left_anim_in);
+		is.setBackgroundColor(Color.RED);
 	}
 
 	public void left(View v) {
-		// set left image in
 		currentImage--;
 		if (currentImage < 0)
 			currentImage = pics.length - 1;
 
-		Animation in = AnimationUtils.loadAnimation(this, R.anim.my_left_anim_in);
-		Animation out = AnimationUtils.loadAnimation(this, R.anim.my_left_anim_out);
+		Animation in = AnimationUtils.loadAnimation(this,
+				R.anim.my_left_anim_in);
+		Animation out = AnimationUtils.loadAnimation(this,
+				R.anim.my_right_anim_out);
+		is.setImageResource(pics[currentImage]);
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
-		is.setImageResource(pics[currentImage]);
 
 	}
 
 	public void right(View v) {
-		// set right image out
 		currentImage++;
 		if (currentImage > pics.length - 1)
 			currentImage = 0;
 
-		Animation in = AnimationUtils.loadAnimation(this, R.anim.my_right_anim_out);
-		Animation out = AnimationUtils.loadAnimation(this, R.anim.my_right_anim_in);
-		is.setInAnimation(out);
-		is.setOutAnimation(in);
+		Animation in = AnimationUtils.loadAnimation(this,
+				R.anim.my_right_anim_in);
+		Animation out = AnimationUtils.loadAnimation(this,
+				R.anim.my_left_anim_out);
 		is.setImageResource(pics[currentImage]);
+		is.setInAnimation(in);
+		is.setOutAnimation(out);
 	}
 }
