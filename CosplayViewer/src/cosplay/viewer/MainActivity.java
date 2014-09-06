@@ -13,7 +13,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.media.MediaScannerConnection;
+import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,7 +35,6 @@ public class MainActivity extends Activity {
 
 	// link for building template out
 	// http://www.tutorialspoint.com/android/android_imageswitcher.htm
-
 	public final static int[] PICS = { R.drawable.image0, R.drawable.image1,
 			R.drawable.image2, R.drawable.image3, R.drawable.image4,
 			R.drawable.image5, R.drawable.image6, R.drawable.image7,
@@ -53,6 +55,7 @@ public class MainActivity extends Activity {
 
 	public final static String DEVART_LINK = "http://evieevangelion.deviantart.com/";
 	public final static String FACEBOOK_LINK = "https://www.facebook.com/EvieEvangelion";
+	public final static String URB_LINK = "http://freemusicarchive.org/music/URB/";
 	public final static String ARTIST = "Evie-E";
 	public final static String SAVE_UNABLE = "Unable to Save";
 	public final static String SAVE_ABLE = "Photo Saved!";
@@ -60,12 +63,22 @@ public class MainActivity extends Activity {
 	public static final String MY_PREFERENCES = "MyPrefs";
 
 	public static final String CURRENT_IMAGE = "currentImage";
-
-	public int currentImage = 0;
+	public static final String CURRENT_POSITION = "currentPosition";
+	public static final String PLAY_MUSIC = "playMusic";
+	public int currentImage = 0, imageSaved, pageTurn;
 	public ImageSwitcher is;
 	public Toast toast;
 
 	SharedPreferences sharedpreferences;
+
+	SoundPool sp;
+	AudioManager audioManager;
+
+	boolean loaded;
+
+	float actualVolume, maxVolume, volume;
+
+	MyMediaPlayer myMp = new MyMediaPlayer();
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,8 +98,15 @@ public class MainActivity extends Activity {
 			Intent i2 = new Intent(Intent.ACTION_VIEW, Uri.parse(FACEBOOK_LINK));
 			startActivity(i2);
 			return true;
+		case R.id.menu_music_urb:
+			Intent i3 = new Intent(Intent.ACTION_VIEW, Uri.parse(URB_LINK));
+			startActivity(i3);
+			return true;
 		case R.id.menu_save_image:
 			saveImage(getBaseContext());
+			return true;
+		case R.id.menu_music_toggle:
+			myMp.toggleMusic();
 			return true;
 		default:
 			return true;
@@ -102,13 +122,37 @@ public class MainActivity extends Activity {
 				Context.MODE_PRIVATE);
 
 		if (sharedpreferences.contains(CURRENT_IMAGE)) {
-			try {
-				currentImage = sharedpreferences.getInt(CURRENT_IMAGE, 0);
-			} catch (NumberFormatException nfe) {
-				nfe.printStackTrace();
-			}
-
+			currentImage = sharedpreferences.getInt(CURRENT_IMAGE, 0);
 		}
+
+		if (sharedpreferences.contains(CURRENT_POSITION)) {
+			myMp.currentPosition = sharedpreferences
+					.getInt(CURRENT_POSITION, 0);
+		}
+
+		if (sharedpreferences.contains(PLAY_MUSIC)) {
+			myMp.playMusic = sharedpreferences.getBoolean(PLAY_MUSIC, true);
+		}
+
+		sp = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		sp.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+			public void onLoadComplete(SoundPool soundPool, int sampleId,
+					int status) {
+				loaded = true;
+			}
+		});
+
+		audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+		actualVolume = (float) audioManager
+				.getStreamVolume(AudioManager.STREAM_MUSIC);
+		maxVolume = (float) audioManager
+				.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		volume = actualVolume / maxVolume;
+
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+		pageTurn = sp.load(this, R.raw.pageturn, 1);
+		imageSaved = sp.load(this, R.raw.imagesaved, 1);
 
 		is = (ImageSwitcher) findViewById(R.id.mainImageSwitcher);
 		is.setFactory(new ViewFactory() {
@@ -130,7 +174,6 @@ public class MainActivity extends Activity {
 		Animation out = AnimationUtils.loadAnimation(this,
 				R.anim.my_right_anim_out);
 
-		is.setImageResource(PICS[currentImage]);
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
 	}
@@ -139,34 +182,32 @@ public class MainActivity extends Activity {
 		currentImage--;
 		if (currentImage < 0)
 			currentImage = PICS.length - 1;
-		
-		setCurrentImageInSharedPreferences();
 
 		Animation in = AnimationUtils.loadAnimation(this,
 				R.anim.my_left_anim_in);
 		Animation out = AnimationUtils.loadAnimation(this,
 				R.anim.my_right_anim_out);
-		
+
 		is.setImageResource(PICS[currentImage]);
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
+		playSound(pageTurn);
 	}
 
 	public void right(View v) {
 		currentImage++;
 		if (currentImage > PICS.length - 1)
 			currentImage = 0;
-		
-		setCurrentImageInSharedPreferences();
-		
+
 		Animation in = AnimationUtils.loadAnimation(this,
 				R.anim.my_right_anim_in);
 		Animation out = AnimationUtils.loadAnimation(this,
 				R.anim.my_left_anim_out);
-		
+
 		is.setImageResource(PICS[currentImage]);
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
+		playSound(pageTurn);
 	}
 
 	public void saveImage(Context context) {
@@ -211,6 +252,7 @@ public class MainActivity extends Activity {
 						is.close();
 						os.close();
 
+						playSound(imageSaved);
 						showToast(context, SAVE_ABLE);
 
 						// Make file immediately available.
@@ -250,9 +292,36 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	public void setCurrentImageInSharedPreferences() {
+	public void playSound(int sound) {
+		if (loaded) {
+			sp.play(sound, volume, volume, 1, 0, 1f);
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		myMp.resume(getBaseContext());
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
 		Editor editor = sharedpreferences.edit();
 		editor.putInt(CURRENT_IMAGE, currentImage);
+		editor.putBoolean(PLAY_MUSIC, myMp.playMusic);
+		if (myMp != null) {
+			if (myMp.mediaPlayer.isPlaying())
+				myMp.pause();
+			myMp.currentPosition = myMp.getCurrentPosition();
+			editor.putInt(CURRENT_POSITION, myMp.currentPosition);
+		}
 		editor.commit();
+		myMp.destroy();
 	}
 }

@@ -11,9 +11,19 @@
         android:showAsAction="never"
         android:title="@string/menu_blog_facebook"/>
     <item
+        android:id="@+id/menu_music_urb"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_music_urb"/>
+    <item
         android:id="@+id/menu_save_image"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/menu_save_image"/>
+    <item
+        android:id="@+id/menu_music_toggle"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/menu_music_toggle"/>
 
 </menu>
