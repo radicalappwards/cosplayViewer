@@ -51,10 +51,19 @@ public class MainActivity extends Activity {
 				return myView;
 			}
 		});
-		
+
+		is.setBackgroundColor(Color.RED);
+		is.setImageResource(pics[currentImage]);
+
 		Animation in = AnimationUtils.loadAnimation(this,
 				R.anim.my_left_anim_in);
-		is.setBackgroundColor(Color.RED);
+		Animation out = AnimationUtils.loadAnimation(this,
+				R.anim.my_right_anim_out);
+
+		is.setImageResource(pics[currentImage]);
+		is.setInAnimation(in);
+		is.setOutAnimation(out);
+		
 	}
 
 	public void left(View v) {
