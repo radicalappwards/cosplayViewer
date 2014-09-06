@@ -10,6 +10,8 @@ import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -31,7 +33,7 @@ public class MainActivity extends Activity {
 	// link for building template out
 	// http://www.tutorialspoint.com/android/android_imageswitcher.htm
 
-	public final static int[] pics = { R.drawable.image0, R.drawable.image1,
+	public final static int[] PICS = { R.drawable.image0, R.drawable.image1,
 			R.drawable.image2, R.drawable.image3, R.drawable.image4,
 			R.drawable.image5, R.drawable.image6, R.drawable.image7,
 			R.drawable.image8, R.drawable.image9, R.drawable.image10,
@@ -55,10 +57,15 @@ public class MainActivity extends Activity {
 	public final static String SAVE_UNABLE = "Unable to Save";
 	public final static String SAVE_ABLE = "Photo Saved!";
 	public final static String SAVE_EXISTS = "Photo Exists Already!";
+	public static final String MY_PREFERENCES = "MyPrefs";
+
+	public static final String CURRENT_IMAGE = "currentImage";
 
 	public int currentImage = 0;
 	public ImageSwitcher is;
 	public Toast toast;
+
+	SharedPreferences sharedpreferences;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,6 +97,19 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		sharedpreferences = getSharedPreferences(MY_PREFERENCES,
+				Context.MODE_PRIVATE);
+
+		if (sharedpreferences.contains(CURRENT_IMAGE)) {
+			try {
+				currentImage = sharedpreferences.getInt(CURRENT_IMAGE, 0);
+			} catch (NumberFormatException nfe) {
+				nfe.printStackTrace();
+			}
+
+		}
+
 		is = (ImageSwitcher) findViewById(R.id.mainImageSwitcher);
 		is.setFactory(new ViewFactory() {
 			@Override
@@ -103,44 +123,48 @@ public class MainActivity extends Activity {
 		});
 
 		is.setBackgroundColor(Color.RED);
-		is.setImageResource(pics[currentImage]);
+		is.setImageResource(PICS[currentImage]);
 
 		Animation in = AnimationUtils.loadAnimation(this,
 				R.anim.my_left_anim_in);
 		Animation out = AnimationUtils.loadAnimation(this,
 				R.anim.my_right_anim_out);
 
-		is.setImageResource(pics[currentImage]);
+		is.setImageResource(PICS[currentImage]);
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
-
 	}
 
 	public void left(View v) {
 		currentImage--;
 		if (currentImage < 0)
-			currentImage = pics.length - 1;
+			currentImage = PICS.length - 1;
+		
+		setCurrentImageInSharedPreferences();
 
 		Animation in = AnimationUtils.loadAnimation(this,
 				R.anim.my_left_anim_in);
 		Animation out = AnimationUtils.loadAnimation(this,
 				R.anim.my_right_anim_out);
-		is.setImageResource(pics[currentImage]);
+		
+		is.setImageResource(PICS[currentImage]);
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
-
 	}
 
 	public void right(View v) {
 		currentImage++;
-		if (currentImage > pics.length - 1)
+		if (currentImage > PICS.length - 1)
 			currentImage = 0;
-
+		
+		setCurrentImageInSharedPreferences();
+		
 		Animation in = AnimationUtils.loadAnimation(this,
 				R.anim.my_right_anim_in);
 		Animation out = AnimationUtils.loadAnimation(this,
 				R.anim.my_left_anim_out);
-		is.setImageResource(pics[currentImage]);
+		
+		is.setImageResource(PICS[currentImage]);
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
 	}
@@ -178,7 +202,7 @@ public class MainActivity extends Activity {
 					// Make sure the Pictures directory exists.
 					if (path.mkdirs() || path.exists()) {
 
-						is = getResources().openRawResource(pics[currentImage]);
+						is = getResources().openRawResource(PICS[currentImage]);
 
 						OutputStream os = new FileOutputStream(file);
 						byte[] data = new byte[is.available()];
@@ -226,4 +250,9 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	public void setCurrentImageInSharedPreferences() {
+		Editor editor = sharedpreferences.edit();
+		editor.putInt(CURRENT_IMAGE, currentImage);
+		editor.commit();
+	}
 }
