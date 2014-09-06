@@ -12,7 +12,7 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ViewSwitcher.ViewFactory;
 
-public class MainActivity extends Activity implements AnimationListener {
+public class MainActivity extends Activity {
 
 	// link for building template out
 	// http://www.tutorialspoint.com/android/android_imageswitcher.htm
@@ -96,21 +96,4 @@ public class MainActivity extends Activity implements AnimationListener {
 		is.setOutAnimation(out);
 	}
 
-	@Override
-	public void onAnimationStart(Animation animation) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onAnimationEnd(Animation animation) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onAnimationRepeat(Animation animation) {
-		// TODO Auto-generated method stub
-
-	}
 }
