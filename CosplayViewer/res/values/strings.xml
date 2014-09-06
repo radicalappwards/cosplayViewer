@@ -2,6 +2,8 @@
 <resources>
 
     <string name="app_name">CosplayViewer</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="menu_blog_devart">Visit my Deviant Art!</string>
+    <string name="menu_blog_facebook">Visit my Facebook!</string>
+    <string name="menu_save_image">Save Photo</string>
 
 </resources>
