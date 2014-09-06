@@ -6,12 +6,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ViewSwitcher.ViewFactory;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements AnimationListener {
 
 	// link for building template out
 	// http://www.tutorialspoint.com/android/android_imageswitcher.htm
@@ -63,7 +64,7 @@ public class MainActivity extends Activity {
 		is.setImageResource(pics[currentImage]);
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
-		
+
 	}
 
 	public void left(View v) {
@@ -93,5 +94,23 @@ public class MainActivity extends Activity {
 		is.setImageResource(pics[currentImage]);
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
+	}
+
+	@Override
+	public void onAnimationStart(Animation animation) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onAnimationEnd(Animation animation) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onAnimationRepeat(Animation animation) {
+		// TODO Auto-generated method stub
+
 	}
 }
