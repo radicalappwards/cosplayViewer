@@ -5,7 +5,7 @@ import android.media.SoundPool;
 
 /**
  * 
- * Sound Pool extension that included loading sound and playing sounds.
+ * Sound Pool extension includes loading sound and playing sounds.
  * 
  * @author Rick
  *

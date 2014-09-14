@@ -27,6 +27,13 @@ import android.widget.ViewSwitcher.ViewFactory;
 import cosplay.viewer.R;
 import cosplay.viewer.data.Data;
 
+/**
+ * 
+ * A class that is the main application implementation.
+ * 
+ * @author Rick
+ *
+ */
 public class CosplayViewer {
 	public int currentImage = 0, imageSaved, pageTurn;
 	public ImageSwitcher is;
@@ -44,9 +51,13 @@ public class CosplayViewer {
 
 	Animation in, out;
 
-	public CosplayViewer() {
-
-	}
+	/**
+	 * 
+	 * Called to start the application by checking for previous state first and
+	 * then recreating the rest.
+	 * 
+	 * @param context
+	 */
 
 	public void init(Context context) {
 		final Activity act = (Activity) context;
@@ -65,8 +76,8 @@ public class CosplayViewer {
 		}
 
 		if (sharedpreferences.contains(Data.PLAY_MUSIC)) {
-			common.playMusic = sharedpreferences.getBoolean(
-					Data.PLAY_MUSIC, true);
+			common.playMusic = sharedpreferences.getBoolean(Data.PLAY_MUSIC,
+					true);
 		}
 
 		mySoundPool = new MySoundPool(10, AudioManager.STREAM_MUSIC, 0);
@@ -251,8 +262,8 @@ public class CosplayViewer {
 	public void pause() {
 		myMediaPlayer.pause();
 	}
-	
-	public void destroy(){
+
+	public void destroy() {
 		myMediaPlayer.destroy();
 	}
 }

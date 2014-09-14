@@ -2,10 +2,15 @@ package cosplay.viewer.data;
 
 import cosplay.viewer.R;
 
+/**
+ * 
+ * A class to hold static data used in various classes.
+ * 
+ * @author Rick
+ *
+ */
 public class Data {
-	
-	// link for building template out
-	// http://www.tutorialspoint.com/android/android_imageswitcher.htm
+
 	public final static int[] PICS = { R.drawable.image0, R.drawable.image1,
 			R.drawable.image2, R.drawable.image3, R.drawable.image4,
 			R.drawable.image5, R.drawable.image6, R.drawable.image7,
@@ -23,7 +28,7 @@ public class Data {
 			R.drawable.image41, R.drawable.image42, R.drawable.image43,
 			R.drawable.image44, R.drawable.image45, R.drawable.image46,
 			R.drawable.image47, R.drawable.image48, R.drawable.image49 };
-	
+
 	public final static String DEVART_LINK = "http://evieevangelion.deviantart.com/";
 	public final static String FACEBOOK_LINK = "https://www.facebook.com/EvieEvangelion";
 	public final static String URB_LINK = "http://freemusicarchive.org/music/URB/";
@@ -36,9 +41,9 @@ public class Data {
 	public static final String CURRENT_IMAGE = "currentImage";
 	public static final String CURRENT_POSITION = "currentPosition";
 	public static final String PLAY_MUSIC = "playMusic";
-	
+
 	public static String PATH = "android.resource://cosplay.viewer/";
 	public static int TRACK_01 = R.raw.track;
 	public static int TRACK_02 = R.raw.urb;
-	
+
 }

@@ -10,6 +10,13 @@ import android.view.View;
 import cosplay.viewer.data.Data;
 import cosplay.viewer.engine.CosplayViewer;
 
+/**
+ * 
+ * Starting point for the application.
+ * 
+ * @author Rick
+ *
+ */
 public class MainActivity extends Activity {
 
 	CosplayViewer cosplayViewer = new CosplayViewer();

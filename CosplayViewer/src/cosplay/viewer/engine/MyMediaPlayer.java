@@ -32,9 +32,6 @@ public class MyMediaPlayer extends MediaPlayer implements
 	Uri path = Uri.parse(Data.PATH + Data.TRACK_01);
 	public Toast toast;
 
-	public MyMediaPlayer() {
-	}
-
 	public void init() {
 		mediaPlayer = new MediaPlayer();
 
