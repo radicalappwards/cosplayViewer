@@ -106,9 +106,6 @@ public class CosplayViewer {
 			}
 		});
 
-		is.setBackgroundColor(Color.RED);
-		is.setImageResource(Data.PICS[currentImage]);
-
 		in = AnimationUtils.loadAnimation(common.context,
 				R.anim.my_left_anim_in);
 		out = AnimationUtils.loadAnimation(common.context,
@@ -117,6 +114,8 @@ public class CosplayViewer {
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
 
+		is.setBackgroundColor(Color.RED);
+		is.setImageResource(Data.PICS[currentImage]);
 	}
 
 	public void left(View v) {
@@ -129,9 +128,10 @@ public class CosplayViewer {
 		out = AnimationUtils.loadAnimation(common.context,
 				R.anim.my_right_anim_out);
 
-		is.setImageResource(Data.PICS[currentImage]);
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
+		is.setImageResource(Data.PICS[currentImage]);
+
 		mySoundPool.playPageTurnSound();
 	}
 
@@ -145,9 +145,10 @@ public class CosplayViewer {
 		out = AnimationUtils.loadAnimation(common.context,
 				R.anim.my_left_anim_out);
 
-		is.setImageResource(Data.PICS[currentImage]);
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
+		is.setImageResource(Data.PICS[currentImage]);
+
 		mySoundPool.playPageTurnSound();
 	}
 
