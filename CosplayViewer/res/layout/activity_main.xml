@@ -14,7 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:onClick="left"
+        android:contentDescription="@+id/image_desc"
+        android:onClick="LeftArrowClick"
         android:src="@drawable/left_arrow" />
 
     <ImageButton
@@ -24,7 +25,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:onClick="right"
+        android:contentDescription="@+id/image_desc"
+        android:onClick="RightArrowClick"
         android:src="@drawable/right_arrow" />
 
 </RelativeLayout>

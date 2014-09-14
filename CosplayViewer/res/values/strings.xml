@@ -7,5 +7,6 @@
     <string name="menu_music_urb">Listen to more URB!</string>
     <string name="menu_save_image">Save Photo</string>
     <string name="menu_music_toggle">Music On/Off</string>
+    <string name="image_desc">Arrow button</string>
 
 </resources>
