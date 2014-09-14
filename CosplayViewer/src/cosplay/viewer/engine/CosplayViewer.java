@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -265,5 +267,32 @@ public class CosplayViewer {
 
 	public void destroy() {
 		myMediaPlayer.destroy();
+	}
+
+	public boolean options(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_blog_devart:
+			Intent i1 = new Intent(Intent.ACTION_VIEW,
+					Uri.parse(Data.DEVART_LINK));
+			common.context.startActivity(i1);
+			return true;
+		case R.id.menu_blog_facebook:
+			Intent i2 = new Intent(Intent.ACTION_VIEW,
+					Uri.parse(Data.FACEBOOK_LINK));
+			common.context.startActivity(i2);
+			return true;
+		case R.id.menu_music_urb:
+			Intent i3 = new Intent(Intent.ACTION_VIEW, Uri.parse(Data.URB_LINK));
+			common.context.startActivity(i3);
+			return true;
+		case R.id.menu_save_image:
+			saveImage(common.context);
+			return true;
+		case R.id.menu_music_toggle:
+			toggleMusic();
+			return true;
+		default:
+			return true;
+		}
 	}
 }

@@ -1,13 +1,10 @@
 package cosplay.viewer;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import cosplay.viewer.data.Data;
 import cosplay.viewer.engine.CosplayViewer;
 
 /**
@@ -37,30 +34,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.menu_blog_devart:
-			Intent i1 = new Intent(Intent.ACTION_VIEW,
-					Uri.parse(Data.DEVART_LINK));
-			startActivity(i1);
-			return true;
-		case R.id.menu_blog_facebook:
-			Intent i2 = new Intent(Intent.ACTION_VIEW,
-					Uri.parse(Data.FACEBOOK_LINK));
-			startActivity(i2);
-			return true;
-		case R.id.menu_music_urb:
-			Intent i3 = new Intent(Intent.ACTION_VIEW, Uri.parse(Data.URB_LINK));
-			startActivity(i3);
-			return true;
-		case R.id.menu_save_image:
-			cosplayViewer.saveImage(getBaseContext());
-			return true;
-		case R.id.menu_music_toggle:
-			cosplayViewer.toggleMusic();
-			return true;
-		default:
-			return true;
-		}
+		return cosplayViewer.options(item);
 	}
 
 	public void LeftArrowClick(View view) {
