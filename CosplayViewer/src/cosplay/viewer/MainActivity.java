@@ -37,6 +37,10 @@ public class MainActivity extends Activity {
 		return cosplayViewer.options(item);
 	}
 
+	public void imageSwitcherClick(View view) {
+		cosplayViewer.imageSwitcher(view);
+	}
+
 	public void LeftArrowClick(View view) {
 		cosplayViewer.left(view);
 	}

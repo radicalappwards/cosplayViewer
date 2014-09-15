@@ -18,8 +18,11 @@ import android.net.Uri;
 import android.os.Environment;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
+import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -102,6 +105,16 @@ public class CosplayViewer {
 				myView.setLayoutParams(new ImageSwitcher.LayoutParams(
 						LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 				return myView;
+			}
+		});
+
+		imageSwitcher.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+
+				return false;
 			}
 		});
 
@@ -298,7 +311,26 @@ public class CosplayViewer {
 			common.turnMode = 0;
 		else
 			common.turnMode++;
-		
+
 		showToast(common.context, "Mode: 0" + common.turnMode);
+	}
+
+	public void imageSwitcher(View view) {
+		// hide or show full image if clicking on view and not a page turn
+		Activity act = (Activity) common.context;
+		ImageButton buttonL = (ImageButton) act.findViewById(R.id.leftButton);
+		if (buttonL != null)
+			if (buttonL.isShown())
+				buttonL.setVisibility(View.INVISIBLE);
+			else
+				buttonL.setVisibility(View.VISIBLE);
+
+		ImageButton buttonR = (ImageButton) act.findViewById(R.id.rightButton);
+		if (buttonR != null)
+			if (buttonR.isShown())
+				buttonR.setVisibility(View.INVISIBLE);
+			else
+				buttonR.setVisibility(View.VISIBLE);
+
 	}
 }
