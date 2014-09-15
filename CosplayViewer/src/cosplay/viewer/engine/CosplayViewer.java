@@ -18,9 +18,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
@@ -38,7 +36,7 @@ import cosplay.viewer.data.Data;
  *
  */
 public class CosplayViewer {
-	public int currentImage = 0, imageSaved, pageTurn;
+	public int imageSaved, pageTurn;
 	public ImageSwitcher imageSwitcher;
 	public Toast toast;
 
@@ -70,17 +68,21 @@ public class CosplayViewer {
 				Context.MODE_PRIVATE);
 
 		if (sharedpreferences.contains(Data.CURRENT_IMAGE)) {
-			currentImage = sharedpreferences.getInt(Data.CURRENT_IMAGE, 0);
+			common.currentImagePosition = sharedpreferences.getInt(Data.CURRENT_IMAGE, 0);
 		}
 
 		if (sharedpreferences.contains(Data.CURRENT_POSITION)) {
-			common.currentPosition = sharedpreferences.getInt(
+			common.currentSoundPosition = sharedpreferences.getInt(
 					Data.CURRENT_POSITION, 0);
 		}
 
 		if (sharedpreferences.contains(Data.PLAY_MUSIC)) {
 			common.playMusic = sharedpreferences.getBoolean(Data.PLAY_MUSIC,
 					true);
+		}
+
+		if (sharedpreferences.contains(Data.TURN_MODE)) {
+			common.turnMode = sharedpreferences.getInt(Data.TURN_MODE, 0);
 		}
 
 		mySoundPool = new MySoundPool(10, AudioManager.STREAM_MUSIC, 0);
@@ -108,16 +110,6 @@ public class CosplayViewer {
 			}
 		});
 
-		imageSwitcher.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-
-				return false;
-			}
-		});
-
 		Animation in = inOutSet.getInAnimationStart();
 		Animation out = inOutSet.getOutAnimationStart();
 
@@ -126,35 +118,35 @@ public class CosplayViewer {
 
 		// is.setBackgroundColor(Color.RED);
 		imageSwitcher.setBackgroundResource(R.drawable.gradient_red_black);
-		imageSwitcher.setImageResource(Data.PICS[currentImage]);
+		imageSwitcher.setImageResource(Data.PICS[common.currentImagePosition]);
 	}
 
 	public void left(View v) {
-		currentImage--;
-		if (currentImage < 0)
-			currentImage = Data.PICS.length - 1;
+		common.currentImagePosition--;
+		if (common.currentImagePosition < 0)
+			common.currentImagePosition = Data.PICS.length - 1;
 
 		Animation in = inOutSet.getInAnimationLeft(common.turnMode);
 		Animation out = inOutSet.getOutAnimationLeft(common.turnMode);
 
 		imageSwitcher.setInAnimation(in);
 		imageSwitcher.setOutAnimation(out);
-		imageSwitcher.setImageResource(Data.PICS[currentImage]);
+		imageSwitcher.setImageResource(Data.PICS[common.currentImagePosition]);
 
 		mySoundPool.playPageTurnSound();
 	}
 
 	public void right(View v) {
-		currentImage++;
-		if (currentImage > Data.PICS.length - 1)
-			currentImage = 0;
+		common.currentImagePosition++;
+		if (common.currentImagePosition > Data.PICS.length - 1)
+			common.currentImagePosition = 0;
 
 		Animation in = inOutSet.getInAnimationRight(common.turnMode);
 		Animation out = inOutSet.getOutAnimationRight(common.turnMode);
 
 		imageSwitcher.setInAnimation(in);
 		imageSwitcher.setOutAnimation(out);
-		imageSwitcher.setImageResource(Data.PICS[currentImage]);
+		imageSwitcher.setImageResource(Data.PICS[common.currentImagePosition]);
 
 		mySoundPool.playPageTurnSound();
 	}
@@ -183,7 +175,7 @@ public class CosplayViewer {
 			// then write picture to phone
 			File path = Environment
 					.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-			String name = Data.ARTIST + currentImage + ".jpg";
+			String name = Data.ARTIST + common.currentImagePosition + ".jpg";
 			File file = new File(path, name);
 			InputStream is = null;
 
@@ -197,7 +189,7 @@ public class CosplayViewer {
 					if (path.mkdirs() || path.exists()) {
 
 						is = context.getResources().openRawResource(
-								Data.PICS[currentImage]);
+								Data.PICS[common.currentImagePosition]);
 
 						OutputStream os = new FileOutputStream(file);
 						byte[] data = new byte[is.available()];
@@ -257,14 +249,15 @@ public class CosplayViewer {
 
 	public void stop() {
 		Editor editor = sharedpreferences.edit();
-		editor.putInt(Data.CURRENT_IMAGE, currentImage);
+		editor.putInt(Data.CURRENT_IMAGE, common.currentImagePosition);
+		editor.putInt(Data.TURN_MODE, common.turnMode);
 		editor.putBoolean(Data.PLAY_MUSIC, common.playMusic);
 		if (myMediaPlayer != null && myMediaPlayer.mediaPlayer != null) {
 			if (myMediaPlayer.mediaPlayer.isPlaying())
 				myMediaPlayer.pause();
-			common.currentPosition = myMediaPlayer.getCurrentPosition();
+			common.currentSoundPosition = myMediaPlayer.getCurrentPosition();
 		}
-		editor.putInt(Data.CURRENT_POSITION, common.currentPosition);
+		editor.putInt(Data.CURRENT_POSITION, common.currentSoundPosition);
 		editor.commit();
 	}
 
@@ -274,6 +267,9 @@ public class CosplayViewer {
 
 	public void destroy() {
 		myMediaPlayer.destroy();
+
+		mySoundPool.release();
+		mySoundPool = null;
 	}
 
 	public boolean options(MenuItem item) {
@@ -332,5 +328,12 @@ public class CosplayViewer {
 			else
 				buttonR.setVisibility(View.VISIBLE);
 
+	}
+
+	public void quietSound() {
+		// set volume to low
+		if (common.playMusic && myMediaPlayer != null) {
+			myMediaPlayer.quietSound();
+		}
 	}
 }

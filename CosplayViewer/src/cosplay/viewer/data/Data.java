@@ -41,6 +41,7 @@ public class Data {
 	public static final String CURRENT_IMAGE = "currentImage";
 	public static final String CURRENT_POSITION = "currentPosition";
 	public static final String PLAY_MUSIC = "playMusic";
+	public static final String TURN_MODE = "turnMode";
 
 	public static String PATH = "android.resource://cosplay.viewer/";
 	public static int TRACK_01 = R.raw.track;

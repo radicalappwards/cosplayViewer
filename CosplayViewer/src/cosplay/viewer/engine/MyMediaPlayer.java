@@ -57,8 +57,8 @@ public class MyMediaPlayer extends MediaPlayer implements
 	public void onPrepared(MediaPlayer player) {
 		// check for option to play music and resume last position
 		if (cv.playMusic) {
-			if (cv.currentPosition > 0)
-				mediaPlayer.seekTo(cv.currentPosition);
+			if (cv.currentSoundPosition > 0)
+				mediaPlayer.seekTo(cv.currentSoundPosition);
 			player.start();
 		}
 	}
@@ -66,12 +66,12 @@ public class MyMediaPlayer extends MediaPlayer implements
 	public void setSoundStopped() {
 		// set current position to be the media player position
 		if (mediaPlayer != null) {
-			cv.currentPosition = mediaPlayer.getCurrentPosition();
+			cv.currentSoundPosition = mediaPlayer.getCurrentPosition();
 
 			// check if position is over the valid duration
-			if (cv.currentPosition >= mediaPlayer.getDuration()
+			if (cv.currentSoundPosition >= mediaPlayer.getDuration()
 					&& mediaPlayer.getDuration() != -1)
-				cv.currentPosition = 0;
+				cv.currentSoundPosition = 0;
 		}
 	}
 
@@ -160,7 +160,7 @@ public class MyMediaPlayer extends MediaPlayer implements
 	public void toggleMusic() {
 		if (cv.playMusic) {
 			cv.playMusic = false;
-			showToast(cv.context,"Music off");
+			showToast(cv.context, "Music off");
 			pause();
 		} else {
 			cv.playMusic = true;
@@ -190,5 +190,11 @@ public class MyMediaPlayer extends MediaPlayer implements
 		// the media player may error out and reach here if not handled
 		init();
 		start();
+	}
+
+	public void quietSound() {
+		if (mediaPlayer.isPlaying()) {
+			setNewVolume(0.1f);
+		}
 	}
 }

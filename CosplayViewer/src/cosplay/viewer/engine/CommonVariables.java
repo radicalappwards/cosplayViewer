@@ -13,13 +13,17 @@ import android.content.Context;
 public class CommonVariables {
 
 	private volatile static CommonVariables instance;
+	
+	public static final int MAX_TURN_MODES = 3;
+
 	public Context context;
 	public float volume;
 
+	public int currentSoundPosition;
+	public int currentImagePosition;
+
 	public int saveSound;
 	public int pageTurnSound;
-
-	public int currentPosition;
 
 	public boolean playSaveSound = true;
 	public boolean saveSoundLoaded;
@@ -27,14 +31,12 @@ public class CommonVariables {
 	public boolean playChimeSound = true;
 	public boolean chimeLoaded;
 
-	public boolean playMusic = true;
-
 	public boolean playPageTurnSound = true;
 	public boolean pageTurnLoaded;
 
-	public int turnMode;
+	public boolean playMusic = true;
 
-	public static final int MAX_TURN_MODES = 3;
+	public int turnMode;	
 
 	public static CommonVariables getInstance() {
 		if (instance == null)
