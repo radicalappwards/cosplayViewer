@@ -2,10 +2,12 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:fillAfter="true" >
 
-    <alpha
+    <rotate
         android:duration="500"
-        android:fromAlpha="1.0"
+        android:fromDegrees="-180"
         android:interpolator="@android:anim/linear_interpolator"
-        android:toAlpha="0.0" />
+        android:pivotX="100%"
+        android:pivotY="0%"
+        android:toDegrees="0" />
 
 </set>

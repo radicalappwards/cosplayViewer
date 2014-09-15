@@ -105,9 +105,9 @@ public class CosplayViewer {
 		});
 
 		Animation in = AnimationUtils
-				.loadAnimation(common.context, R.anim.prac);
+				.loadAnimation(common.context, R.anim.fade_in);
 		Animation out = AnimationUtils.loadAnimation(common.context,
-				R.anim.prac_out);
+				R.anim.warp_vertical);
 
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
@@ -122,9 +122,9 @@ public class CosplayViewer {
 			currentImage = Data.PICS.length - 1;
 
 		Animation in = AnimationUtils
-				.loadAnimation(common.context, R.anim.prac);
+				.loadAnimation(common.context, R.anim.prac_left_in);
 		Animation out = AnimationUtils.loadAnimation(common.context,
-				R.anim.prac_out);
+				R.anim.warp_vertical);
 
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
@@ -138,8 +138,8 @@ public class CosplayViewer {
 		if (currentImage > Data.PICS.length - 1)
 			currentImage = 0;
 
-		Animation in = AnimationUtils.loadAnimation(common.context, R.anim.prac);
-		Animation out = AnimationUtils.loadAnimation(common.context, R.anim.prac_out);
+		Animation in = AnimationUtils.loadAnimation(common.context, R.anim.prac_right_in);
+		Animation out = AnimationUtils.loadAnimation(common.context, R.anim.warp_vertical);
 
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
