@@ -51,8 +51,6 @@ public class CosplayViewer {
 	MyMediaPlayer myMediaPlayer = new MyMediaPlayer();
 	MySoundPool mySoundPool;
 
-	Animation in, out;
-
 	/**
 	 * 
 	 * Called to start the application by checking for previous state first and
@@ -106,8 +104,10 @@ public class CosplayViewer {
 			}
 		});
 
-		in = AnimationUtils.loadAnimation(common.context,
-				R.anim.flip);
+		Animation in = AnimationUtils
+				.loadAnimation(common.context, R.anim.prac);
+		Animation out = AnimationUtils.loadAnimation(common.context,
+				R.anim.prac_out);
 
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
@@ -121,9 +121,10 @@ public class CosplayViewer {
 		if (currentImage < 0)
 			currentImage = Data.PICS.length - 1;
 
-		in = AnimationUtils.loadAnimation(common.context, R.anim.prac);
-		out = AnimationUtils.loadAnimation(common.context,
-				R.anim.my_left_anim_out);
+		Animation in = AnimationUtils
+				.loadAnimation(common.context, R.anim.prac);
+		Animation out = AnimationUtils.loadAnimation(common.context,
+				R.anim.prac_out);
 
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
@@ -137,9 +138,8 @@ public class CosplayViewer {
 		if (currentImage > Data.PICS.length - 1)
 			currentImage = 0;
 
-		in = AnimationUtils.loadAnimation(common.context, R.anim.fade_in);
-		out = AnimationUtils.loadAnimation(common.context,
-				R.anim.my_right_anim_out);
+		Animation in = AnimationUtils.loadAnimation(common.context, R.anim.prac);
+		Animation out = AnimationUtils.loadAnimation(common.context, R.anim.prac_out);
 
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
