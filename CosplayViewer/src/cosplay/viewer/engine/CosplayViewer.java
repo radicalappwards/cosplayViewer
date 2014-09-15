@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -104,15 +103,16 @@ public class CosplayViewer {
 			}
 		});
 
-		Animation in = AnimationUtils
-				.loadAnimation(common.context, R.anim.fade_in);
+		Animation in = AnimationUtils.loadAnimation(common.context,
+				R.anim.fade_in);
 		Animation out = AnimationUtils.loadAnimation(common.context,
 				R.anim.warp_vertical);
 
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
 
-		is.setBackgroundColor(Color.RED);
+		//is.setBackgroundColor(Color.RED);
+		is.setBackgroundResource(R.drawable.gradient_red_black);
 		is.setImageResource(Data.PICS[currentImage]);
 	}
 
@@ -121,8 +121,8 @@ public class CosplayViewer {
 		if (currentImage < 0)
 			currentImage = Data.PICS.length - 1;
 
-		Animation in = AnimationUtils
-				.loadAnimation(common.context, R.anim.prac_left_in);
+		Animation in = AnimationUtils.loadAnimation(common.context,
+				R.anim.prac_left_in);
 		Animation out = AnimationUtils.loadAnimation(common.context,
 				R.anim.warp_vertical);
 
@@ -138,8 +138,10 @@ public class CosplayViewer {
 		if (currentImage > Data.PICS.length - 1)
 			currentImage = 0;
 
-		Animation in = AnimationUtils.loadAnimation(common.context, R.anim.prac_right_in);
-		Animation out = AnimationUtils.loadAnimation(common.context, R.anim.warp_vertical);
+		Animation in = AnimationUtils.loadAnimation(common.context,
+				R.anim.prac_right_in);
+		Animation out = AnimationUtils.loadAnimation(common.context,
+				R.anim.warp_vertical);
 
 		is.setInAnimation(in);
 		is.setOutAnimation(out);
