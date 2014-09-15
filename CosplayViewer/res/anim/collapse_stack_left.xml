@@ -7,7 +7,7 @@
         android:fromXScale="100%"
         android:fromYScale="100%"
         android:interpolator="@android:anim/linear_interpolator"
-        android:pivotX="100%"
+        android:pivotX="0%"
         android:pivotY="50%"
         android:toXScale="5%"
         android:toYScale="100%" />

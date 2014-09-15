@@ -160,9 +160,11 @@ public class MyMediaPlayer extends MediaPlayer implements
 	public void toggleMusic() {
 		if (cv.playMusic) {
 			cv.playMusic = false;
+			showToast(cv.context,"Music off");
 			pause();
 		} else {
 			cv.playMusic = true;
+			showToast(cv.context, "Music on/restarted");
 			resume();
 		}
 	}

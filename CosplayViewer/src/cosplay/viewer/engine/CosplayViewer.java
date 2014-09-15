@@ -37,7 +37,7 @@ import cosplay.viewer.data.Data;
  */
 public class CosplayViewer {
 	public int currentImage = 0, imageSaved, pageTurn;
-	public ImageSwitcher is;
+	public ImageSwitcher imageSwitcher;
 	public Toast toast;
 
 	SharedPreferences sharedpreferences;
@@ -91,8 +91,9 @@ public class CosplayViewer {
 
 		act.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-		is = (ImageSwitcher) act.findViewById(R.id.mainImageSwitcher);
-		is.setFactory(new ViewFactory() {
+		imageSwitcher = (ImageSwitcher) act
+				.findViewById(R.id.mainImageSwitcher);
+		imageSwitcher.setFactory(new ViewFactory() {
 			@Override
 			public View makeView() {
 				ImageView myView = new ImageView(act.getApplicationContext());
@@ -108,12 +109,12 @@ public class CosplayViewer {
 		Animation out = AnimationUtils.loadAnimation(common.context,
 				R.anim.warp_vertical);
 
-		is.setInAnimation(in);
-		is.setOutAnimation(out);
+		imageSwitcher.setInAnimation(in);
+		imageSwitcher.setOutAnimation(out);
 
-		//is.setBackgroundColor(Color.RED);
-		is.setBackgroundResource(R.drawable.gradient_red_black);
-		is.setImageResource(Data.PICS[currentImage]);
+		// is.setBackgroundColor(Color.RED);
+		imageSwitcher.setBackgroundResource(R.drawable.gradient_red_black);
+		imageSwitcher.setImageResource(Data.PICS[currentImage]);
 	}
 
 	public void left(View v) {
@@ -124,11 +125,11 @@ public class CosplayViewer {
 		Animation in = AnimationUtils.loadAnimation(common.context,
 				R.anim.prac_left_in);
 		Animation out = AnimationUtils.loadAnimation(common.context,
-				R.anim.warp_vertical);
+				R.anim.prac_left_out);
 
-		is.setInAnimation(in);
-		is.setOutAnimation(out);
-		is.setImageResource(Data.PICS[currentImage]);
+		imageSwitcher.setInAnimation(in);
+		imageSwitcher.setOutAnimation(out);
+		imageSwitcher.setImageResource(Data.PICS[currentImage]);
 
 		mySoundPool.playPageTurnSound();
 	}
@@ -141,11 +142,11 @@ public class CosplayViewer {
 		Animation in = AnimationUtils.loadAnimation(common.context,
 				R.anim.prac_right_in);
 		Animation out = AnimationUtils.loadAnimation(common.context,
-				R.anim.warp_vertical);
+				R.anim.prac_right_out);
 
-		is.setInAnimation(in);
-		is.setOutAnimation(out);
-		is.setImageResource(Data.PICS[currentImage]);
+		imageSwitcher.setInAnimation(in);
+		imageSwitcher.setOutAnimation(out);
+		imageSwitcher.setImageResource(Data.PICS[currentImage]);
 
 		mySoundPool.playPageTurnSound();
 	}
