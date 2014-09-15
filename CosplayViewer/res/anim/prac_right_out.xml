@@ -3,7 +3,7 @@
     android:fillAfter="true" >
 
     <scale
-        android:duration="250"
+        android:duration="400"
         android:fromXScale="100%"
         android:fromYScale="100%"
         android:interpolator="@android:anim/linear_interpolator"

@@ -4,11 +4,10 @@
 
     <rotate
         android:duration="500"
-        android:fromDegrees="180"
+        android:fromDegrees="-180"
         android:interpolator="@android:anim/anticipate_interpolator"
-        android:pivotX="0%"
+        android:pivotX="100%"
         android:pivotY="0%"
-        android:startOffset="100"
         android:toDegrees="0" />
 
 </set>

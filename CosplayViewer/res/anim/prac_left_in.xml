@@ -4,9 +4,9 @@
 
     <rotate
         android:duration="500"
-        android:fromDegrees="-180"
+        android:fromDegrees="180"
         android:interpolator="@android:anim/anticipate_interpolator"
-        android:pivotX="100%"
+        android:pivotX="0%"
         android:pivotY="0%"
         android:toDegrees="0" />
 
