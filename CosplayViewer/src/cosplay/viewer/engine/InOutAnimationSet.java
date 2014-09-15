@@ -10,9 +10,9 @@ public class InOutAnimationSet {
 	public Animation inAnimation;
 	CommonVariables common = CommonVariables.getInstance();
 
+	public final static int EXPAND_COLLAPSE = 0;
 	public final static int WARP_VERTICAL = 1;
-	public final static int COLLAPSE_ROTATE_CENTER = 0;
-	public final static int EXPAND_COLLAPSE = 2;
+	public final static int COLLAPSE_ROTATE_CENTER = 2;
 
 	public Animation getOutAnimationRight(int anim) {
 		switch (anim) {
@@ -26,7 +26,7 @@ public class InOutAnimationSet {
 			break;
 		case EXPAND_COLLAPSE:
 			outAnimation = AnimationUtils.loadAnimation(common.context,
-					R.anim.expand);
+					R.anim.collapse_rotate_right);
 			break;
 		}
 		return outAnimation;
@@ -44,7 +44,7 @@ public class InOutAnimationSet {
 			break;
 		case EXPAND_COLLAPSE:
 			outAnimation = AnimationUtils.loadAnimation(common.context,
-					R.anim.collapse);
+					R.anim.collapse_rotate_left);
 			break;
 		}
 		return outAnimation;
