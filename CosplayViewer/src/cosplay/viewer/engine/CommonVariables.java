@@ -32,6 +32,10 @@ public class CommonVariables {
 	public boolean playPageTurnSound = true;
 	public boolean pageTurnLoaded;
 
+	public int turnMode;
+
+	public static final int MAX_TURN_MODES = 3;
+
 	public static CommonVariables getInstance() {
 		if (instance == null)
 			synchronized (CommonVariables.class) {

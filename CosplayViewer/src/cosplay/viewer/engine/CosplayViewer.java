@@ -20,7 +20,6 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -49,6 +48,8 @@ public class CosplayViewer {
 	CommonVariables common = CommonVariables.getInstance();
 	MyMediaPlayer myMediaPlayer = new MyMediaPlayer();
 	MySoundPool mySoundPool;
+
+	InOutAnimationSet inOutSet = new InOutAnimationSet();
 
 	/**
 	 * 
@@ -104,10 +105,8 @@ public class CosplayViewer {
 			}
 		});
 
-		Animation in = AnimationUtils.loadAnimation(common.context,
-				R.anim.fade_in);
-		Animation out = AnimationUtils.loadAnimation(common.context,
-				R.anim.warp_vertical);
+		Animation in = inOutSet.getInAnimationStart();
+		Animation out = inOutSet.getOutAnimationStart();
 
 		imageSwitcher.setInAnimation(in);
 		imageSwitcher.setOutAnimation(out);
@@ -122,10 +121,8 @@ public class CosplayViewer {
 		if (currentImage < 0)
 			currentImage = Data.PICS.length - 1;
 
-		Animation in = AnimationUtils.loadAnimation(common.context,
-				R.anim.prac_left_in);
-		Animation out = AnimationUtils.loadAnimation(common.context,
-				R.anim.prac_left_out);
+		Animation in = inOutSet.getInAnimationLeft(common.turnMode);
+		Animation out = inOutSet.getOutAnimationLeft(common.turnMode);
 
 		imageSwitcher.setInAnimation(in);
 		imageSwitcher.setOutAnimation(out);
@@ -139,10 +136,8 @@ public class CosplayViewer {
 		if (currentImage > Data.PICS.length - 1)
 			currentImage = 0;
 
-		Animation in = AnimationUtils.loadAnimation(common.context,
-				R.anim.prac_right_in);
-		Animation out = AnimationUtils.loadAnimation(common.context,
-				R.anim.prac_right_out);
+		Animation in = inOutSet.getInAnimationRight(common.turnMode);
+		Animation out = inOutSet.getOutAnimationRight(common.turnMode);
 
 		imageSwitcher.setInAnimation(in);
 		imageSwitcher.setOutAnimation(out);
@@ -291,8 +286,20 @@ public class CosplayViewer {
 		case R.id.menu_music_toggle:
 			toggleMusic();
 			return true;
+		case R.id.menu_turn_toggle:
+			togglePageTurns();
+			return true;
 		default:
 			return true;
 		}
+	}
+
+	private synchronized void togglePageTurns() {
+		if (common.turnMode >= (CommonVariables.MAX_TURN_MODES - 1))
+			common.turnMode = 0;
+		else
+			common.turnMode++;
+		
+		showToast(common.context, "Mode: 0" + common.turnMode);
 	}
 }

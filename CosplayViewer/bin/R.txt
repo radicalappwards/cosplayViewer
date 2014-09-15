@@ -29,9 +29,11 @@ int anim sequential 0x7f04001b
 int anim slide_down 0x7f04001c
 int anim slide_up 0x7f04001d
 int anim together 0x7f04001e
-int anim warp_vertical 0x7f04001f
-int anim zoom_in 0x7f040020
-int anim zoom_out 0x7f040021
+int anim top_left_corner_rotate_in 0x7f04001f
+int anim top_right_corner_rotate_in 0x7f040020
+int anim warp_vertical 0x7f040021
+int anim zoom_in 0x7f040022
+int anim zoom_out 0x7f040023
 int attr actionBarDivider 0x7f01000f
 int attr actionBarItemBackground 0x7f010010
 int attr actionBarSize 0x7f01000e
@@ -356,6 +358,7 @@ int id menu_blog_facebook 0x7f060041
 int id menu_music_toggle 0x7f060044
 int id menu_music_urb 0x7f060042
 int id menu_save_image 0x7f060043
+int id menu_turn_toggle 0x7f060045
 int id middle 0x7f060012
 int id never 0x7f060009
 int id none 0x7f060010
@@ -432,12 +435,13 @@ int string abc_searchview_description_voice 0x7f0b0008
 int string abc_shareactionprovider_share_with 0x7f0b000c
 int string abc_shareactionprovider_share_with_application 0x7f0b000b
 int string app_name 0x7f0b000d
-int string image_desc 0x7f0b0013
+int string image_desc 0x7f0b0014
 int string menu_blog_devart 0x7f0b000e
 int string menu_blog_facebook 0x7f0b000f
 int string menu_music_toggle 0x7f0b0012
 int string menu_music_urb 0x7f0b0010
 int string menu_save_image 0x7f0b0011
+int string menu_turn_toggle 0x7f0b0013
 int style AppBaseTheme 0x7f0c008b
 int style AppTheme 0x7f0c008c
 int style TextAppearance_AppCompat_Base_CompactMenu_Dialog 0x7f0c0063
