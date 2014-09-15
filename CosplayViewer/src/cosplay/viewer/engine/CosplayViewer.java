@@ -218,7 +218,6 @@ public class CosplayViewer {
 	}
 
 	public void showToast(Context cont, String message) {
-		Toast toast = null;
 		if (toast == null) {
 			toast = Toast.makeText(cont, message, Toast.LENGTH_SHORT);
 			toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
@@ -294,7 +293,7 @@ public class CosplayViewer {
 		}
 	}
 
-	private synchronized void togglePageTurns() {
+	private void togglePageTurns() {
 		if (common.turnMode >= (CommonVariables.MAX_TURN_MODES - 1))
 			common.turnMode = 0;
 		else
