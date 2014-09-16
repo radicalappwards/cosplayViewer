@@ -42,7 +42,7 @@ public class MyMediaPlayer extends MediaPlayer implements
 
 	public void start() {
 		try {
-			//if we don't have to play music then don't take focus
+			// if we don't have to play music then don't take focus
 			if (cv.playMusic) {
 				am = (AudioManager) cv.context
 						.getSystemService(Context.AUDIO_SERVICE);
@@ -146,7 +146,8 @@ public class MyMediaPlayer extends MediaPlayer implements
 	}
 
 	public void pause() {
-		am.abandonAudioFocus(this);
+		if (am != null)
+			am.abandonAudioFocus(this);
 		if (mediaPlayer != null) {
 			if (mediaPlayer.isPlaying())
 				mediaPlayer.pause();
