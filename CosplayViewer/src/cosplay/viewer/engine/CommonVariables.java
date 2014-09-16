@@ -17,7 +17,7 @@ public class CommonVariables {
 	public static final int MAX_TURN_MODES = 3;
 
 	public Context context;
-	public float volume;
+	public float volume = 1.0f;
 
 	public int currentSoundPosition;
 	public int currentImagePosition;

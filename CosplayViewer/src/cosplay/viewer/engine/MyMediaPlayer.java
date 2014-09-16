@@ -31,6 +31,7 @@ public class MyMediaPlayer extends MediaPlayer implements
 	public MediaPlayer mediaPlayer;
 	Uri path = Uri.parse(Data.PATH + Data.TRACK_01);
 	public Toast toast;
+	AudioManager am;
 
 	public void init() {
 		mediaPlayer = new MediaPlayer();
@@ -41,11 +42,23 @@ public class MyMediaPlayer extends MediaPlayer implements
 
 	public void start() {
 		try {
-			mediaPlayer.reset();
-			mediaPlayer.setDataSource(cv.context, path);
-			mediaPlayer.setLooping(true);
-			mediaPlayer.setVolume(cv.volume, cv.volume);
-			mediaPlayer.prepareAsync();
+			//if we don't have to play music then don't take focus
+			if (cv.playMusic) {
+				am = (AudioManager) cv.context
+						.getSystemService(Context.AUDIO_SERVICE);
+				int result = am
+						.requestAudioFocus(this, AudioManager.STREAM_MUSIC,
+								AudioManager.AUDIOFOCUS_GAIN);
+				if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+					// Start playback.
+					mediaPlayer.reset();
+					mediaPlayer.setDataSource(cv.context, path);
+					mediaPlayer.setLooping(true);
+					mediaPlayer.setVolume(cv.volume, cv.volume);
+					mediaPlayer.prepareAsync();
+				}
+			}
+
 		} catch (IllegalArgumentException | SecurityException
 				| IllegalStateException | IOException e) {
 			// try is for the setting of the data source
@@ -133,6 +146,7 @@ public class MyMediaPlayer extends MediaPlayer implements
 	}
 
 	public void pause() {
+		am.abandonAudioFocus(this);
 		if (mediaPlayer != null) {
 			if (mediaPlayer.isPlaying())
 				mediaPlayer.pause();
@@ -153,7 +167,7 @@ public class MyMediaPlayer extends MediaPlayer implements
 
 	public void setNewVolume(Float setVolume) {
 		// sets the new volume and updates the audio manager
-		cv.volume = setVolume;
+		// cv.volume = setVolume;
 		mediaPlayer.setVolume(setVolume, setVolume);
 	}
 
