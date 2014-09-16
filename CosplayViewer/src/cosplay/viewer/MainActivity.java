@@ -16,6 +16,8 @@ import cosplay.viewer.engine.CosplayViewer;
  * 
  * Starting point for the application.
  * 
+ * Version 1.0 Three options for page turns.
+ * 
  * @author Rick
  *
  */
